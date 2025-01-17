@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using LabHelloMvc.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,16 +5,36 @@ namespace LabHelloMvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        //Constructor
+        public HomeController()
         {
-            _logger = logger;
+
         }
 
         public IActionResult Index()
         {
-            return View();
+            //Create a list of people (persons)?
+            List<Person> people = new List<Person>();
+            
+            Person person1 = new Person
+            {
+                PersonID = 1,
+                FirstName = "Emily",
+                LastName = "Dunn"
+            };
+
+            Person person2 = new Person
+            {
+                PersonID = 2,
+                FirstName = "John",
+                LastName = "Smith"
+            };
+
+            //Add people to the list
+            people.Add(person1);
+            people.Add(person2);
+           
+            return View(people);
         }
 
         public IActionResult Privacy()
@@ -23,10 +42,6 @@ namespace LabHelloMvc.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }
